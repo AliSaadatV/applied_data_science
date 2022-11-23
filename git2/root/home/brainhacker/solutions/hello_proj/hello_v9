@@ -1,0 +1,76 @@
+#!/bin/bash
+
+print_cow="no"
+out_file=
+SCRIPT=$(basename "$0")
+
+usage() {
+    echo "${SCRIPT} tells you about some Star Wars characters."
+    echo "Usage: ${SCRIPT}"
+    echo " -o out_file      path to the file where to save the output"
+    echo "[-c]              format the output with cows"
+}
+
+### Parsing
+while getopts ":co:" arg; do
+  case $arg in
+    c) 
+      print_cow="yes"
+      ;;
+    o) 
+      out_file="${OPTARG}"
+      ;;
+    # Parameter requiring an argument
+    :) 
+      echo "${SCRIPT}: Must supply an argument to -${OPTARG}."
+      exit 1
+      ;;
+    # Invalid parameter
+   \?) 
+      echo "Invalid option -${OPTARG} ignored."
+      ;;
+  esac
+done
+
+if [[ -z "${out_file}" ]]; then
+  echo "Missing argument: output file"
+  usage
+  exit 1
+fi
+
+if [[ -f "${out_file}" ]]; then
+  echo "Output file ${out_file} already exists, please provide another file path."
+  usage
+  exit 1
+fi
+
+first_names=("Luke" "Han Solo" "R2D2")
+categories=("human" "human" "robot")
+
+for (( K=0; K<${#first_names[@]}; K+=1 )); do
+  fname=${first_names[K]}
+  category=${categories[K]}
+  if [[ "${category}" == "human" ]]; then
+    if [[ "${print_cow}" == "yes" ]]; then
+      cowsay "${fname} is humanoid" >> "${out_file}"
+    elif [[ ${print_cow} == "no" ]]; then
+      echo "${fname} is humanoid"  >> "${out_file}"
+    fi
+  elif [[ ${category} == "robot" ]]; then
+    if [[ ${print_cow} == "yes" ]]; then
+      cowsay "${fname} is robot"  >> "${out_file}"
+    elif [[ ${print_cow} == "no" ]]; then
+      echo "${fname} is robot"  >> "${out_file}"
+    fi
+  else
+    if [[ ${print_cow} == "yes" ]]; then
+      cowsay "I do not know ${fname} humanoid status" >> "${out_file}"
+    elif [[ ${print_cow} == "no" ]]; then
+      echo "I do not know ${fname} humanoid status" >> "${out_file}"
+    fi
+  fi
+done
+
+if [[ $# -eq 0 ]]; then
+  usage
+fi

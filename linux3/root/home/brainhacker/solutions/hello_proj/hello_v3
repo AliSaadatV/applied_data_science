@@ -1,0 +1,5 @@
+#!/bin/bash
+
+first_name="Han Solo"
+
+echo "Hi ${first_name}"

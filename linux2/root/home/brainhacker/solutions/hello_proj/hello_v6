@@ -1,0 +1,10 @@
+#!/bin/bash
+
+first_names=("Luke" "Han Solo" "R2D2")
+categories=("human" "human" "robot")
+
+for (( K=0; K<${#first_names[@]}; K+=1 )); do
+  fname=${first_names[K]}
+  category=${categories[K]}
+  echo "${fname} is a ${category}"
+done

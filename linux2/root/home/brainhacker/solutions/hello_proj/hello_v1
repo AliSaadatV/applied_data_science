@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Hi Han Solo" | cowsay
+fortune | cowsay
+

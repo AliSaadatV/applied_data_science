@@ -1,0 +1,33 @@
+#!/bin/bash
+
+SCRIPT=$(basename "$0")
+
+usage() {
+    echo "${SCRIPT} tells you about some Star Wars characters"
+    echo "and their membership"
+}
+
+first_names=("Luke" "Han Solo" "R2D2")
+categories=("human" "human" "robot")
+
+for (( K=0; K<${#first_names[@]}; K+=1 )); do
+  fname="${first_names[K]}"
+  category="${categories[K]}"
+  if [[ "${category}" == "human" ]]; then
+    echo "${fname} is humanoid"
+  elif [[ "${category}" == "robot" ]]; then
+    echo "${fname} is robot"
+  else
+    echo "I do not know ${fname} humanoid status"
+  fi
+done
+
+  # Print special variables
+  echo "Command the script was called with:"
+  echo "$0"
+  echo "First argument: $1"
+  echo "Second argument: $2"
+
+if [[ $# -eq 0 ]]; then
+  usage
+fi

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 0 ]]
+then
+	echo "no argument to script"
+fi
+
+my_func(){
+	if [[ $# -eq 0 ]]; then
+		echo "no argument to function"
+	else
+		echo "function argument is: $1"
+	fi
+}
+
+my_func func_arg
+echo "argument to script is: $1"
+

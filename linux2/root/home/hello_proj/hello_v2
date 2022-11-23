@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+var=("Ali" "Saadat" "Varnos")
+for name in "${var[@]}"
+do
+    echo "Hi ${name}"
+done
+
+
+
+status=("human" "robot" )
+for ((I=0; I<${#var[@]}; I++))
+do
+    if [[ ${status[$I]} == "human" ]]; then
+        echo "${var[$I]} is human"
+    else
+        echo "${var[$I]} is robot"
+    fi
+done
+
+desk_content=(~/Documents/Courses/IORDS2021/linux2/root/home/brainhacker/desk/*)
+
+for content in ${desk_content[@]}; do
+    content_name=$(basename ${content})
+    if [[ -f $content ]]; then
+        echo "${content_name} is a file"
+    elif [[ -d $content ]]; then
+        echo "${content_name} is a directory"
+    fi
+done
+
+
+var_length=${#var[@]}
+i=0
+while [[ $i -lt $var_length ]]; do
+    echo ${var[$i]}
+    i=$(($i + 1))
+    echo $i
+done    
+
+
+yes_no="n"
+
+case $yes_no in
+    [Yy]|[Yy][Ee][Ss] )
+    echo "it's +"
+    ;;
+    [Nn]|[Nn][Oo] )
+    echo "it's -"
+    ;;
+    *)
+    echo "invalid"
+    ;;
+esac
+
+echo "#########"
+echo "your command is $0"
+echo "number of arguments is $#"
+
+usage(){
+    echo "This says hello to the first argument. Run it as ./hello_v2 NAME"
+}
+if [[ $# -eq 0 ]]; then
+    usage
+else
+    echo "Hey $1"
+fi
+
+

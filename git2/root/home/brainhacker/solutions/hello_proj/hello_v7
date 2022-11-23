@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# List a few characters from Star Wars
+# diffentiating humans and robots.
+#
+# Examine special script variables.
+#
+
+first_names=("Luke" "Han Solo" "R2D2")
+categories=("human" "human" "robot")
+
+for (( K=0; K<${#first_names[@]}; K+=1 )); do
+  fname=${first_names[K]}
+  category=${categories[K]}
+  if [[ ${category} == "human" ]]; then
+    echo "${fname} is humanoid"
+  elif [[ ${category} == "robot" ]]; then
+    echo "${fname} is robot"
+  else
+    echo "I do not know ${fname} humanoid status"
+  fi
+done

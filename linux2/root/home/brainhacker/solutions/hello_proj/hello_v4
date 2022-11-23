@@ -1,0 +1,6 @@
+#!/bin/bash
+
+first_names=("Luke" "Han Solo" "R2D2")
+
+echo "Hi ${first_names[*]}"
+echo "You are ${#first_names[@]} today"

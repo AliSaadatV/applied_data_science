@@ -1,0 +1,29 @@
+# Go to the  edu_ranking directory in your home and print the content of timesData.csv with cat
+cd # to make sure you are inside your home directory, or go there otherwise
+cd edu_ranking # to go inside the edu_ranking directory
+cat timesData.csv # to display the content
+
+# Do the same with more
+more timesData.csv
+
+#Find the column names with head
+head timesData.csv
+# Alternative solution
+head -n 1 timesData.csv  # the first line are enough to see the column names
+#Bonus: find the “female/male ratio” of the 8th and 9th best ranked universities
+head timesData.csv # Simply look at the column names and row names to try to find the ansewr
+
+# Find the name of the last but one university (i.e. end - 1) using tail
+tail -n 2 timesData.csv
+
+# Using grep, check if some familiar Swiss universities are there 
+grep Geneva timesData.csv
+grep Lausanne timesData.csv
+
+# How many lines in timesData.csv ?
+wc -l timesData.csv
+
+# Output the top 15 universities across all years (repeated names for different years OK)
+sort -n timesData.csv | head -n 15
+# Alternative solution
+cat timesData.csv | sort -n | head -n 15

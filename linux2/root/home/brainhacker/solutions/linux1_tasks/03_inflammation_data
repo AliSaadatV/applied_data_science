@@ -1,0 +1,17 @@
+# Count number of lines in one inflammation CSV file of your choice
+cd # to make sure you are in your home directory
+wc -l inflammation_data/MN_region/inflammation-01.csv
+
+# Using wildcards, print number of lines in all inflammation CSV files in a single command
+wc -l inflammation_data/*/*.csv
+
+# Use pipe operator(s) with the previous command to find the 3 smallest CSV files
+wc -l inflammation_data/*/*.csv | sort -n | head -n 3
+
+# Use output redirection to save the output of the previous homework command to a file called smallest_groups.txt
+wc -l inflammation_data/*/*.csv | sort -n | head -n 3 > smallest_groups.txt
+
+# Bonus if you can first add the line “N_subjects filenames”
+# Note : we first use ">" to write to a new file, and then ">>" to append to that file
+echo "N_subjects filenames" > bonus_smallest_groups.txt
+wc -l inflammation_data/*/*.csv | sort -n | head -n 3 >> bonus_smallest_groups.txt

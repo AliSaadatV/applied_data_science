@@ -1,0 +1,7 @@
+#!/bin/bash
+
+first_names=("Luke" "Han Solo" "R2D2")
+
+for first_name in "${first_names[@]}";  do
+  echo "${first_name}"
+done

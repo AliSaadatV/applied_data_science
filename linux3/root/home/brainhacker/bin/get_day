@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+#
+# Extract day 20 from series of inflammation measurements
+
+SCRIPT=$(basename $0)
+CSVFILE=
+OUTFILE=
+DAY=
+
+### Usage
+if [[ $# == 0 ]]; then
+  echo "Usage: $SCRIPT"
+  echo "-f PATH      path to the CSV inflammation data file"
+  echo "-o PATH      path to the output file to write to"
+  echo "-d INTEGER   index of day to extract (starting from 1)"
+  echo "Example: ${SCRIPT} -f my_file.csv -o my_output.csv -d 15"
+  exit 1
+fi
+
+### Parsing
+while getopts :f:o:d: arg
+do
+  case $arg in
+    # Input file
+    f) echo "OPTARG: *${OPTARG}*"
+    if [[ -f ${OPTARG} ]]; then
+         CSVFILE="${OPTARG}"
+       else
+         echo "${SCRIPT}: ${OPTARG} does not exist"
+         exit 1
+       fi
+       ;;
+    o) if [[ ! -f "${OPTARG}" ]]; then
+         OUTFILE="${OPTARG}"
+       else
+         echo "${SCRIPT}: ${OPTARG} should not be an existing file"
+         exit 1
+       fi
+       ;;
+    d) DAY="${OPTARG}"
+       ;;
+    # Parameter requiring an argument
+    :) echo "${SCRIPT}: Must supply an argument to -${OPTARG}."
+       exit 1
+       ;;
+    # Invalid parameter
+   \?) echo "Invalid option -${OPTARG} ignored."
+       ;;
+  esac
+done
+
+if [[ -z "${CSVFILE}" || -z "${OUTFILE}" || -z "${DAY}" ]]; then
+  echo "The day, as well as the path to the CSV inflammation file and the output file must all be provided."
+  exit 1
+fi
+
+# Actual funcion extraction 20th day
+cut -d "," -f "${DAY}" "${CSVFILE}" > "${OUTFILE}"

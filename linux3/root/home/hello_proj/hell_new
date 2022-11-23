@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+print_cow="no"
+out_file=""
+SCRIPT=$0
+
+while getopts ":co:" flag; do
+    case $flag in
+        c )
+        print_cow="yes"
+        ;;
+        o )
+        out_file=$OPTARG
+        ;;
+        \? )
+        echo "$SCRIPT: Invalid option, flag: $flag, argument: $OPTARG"
+        ;;
+        : )
+        echo "$SCRIPT: must supply a parameter: flag: $flag, argument: $OPTARG"
+        ;;
+    esac
+done
+
+usage(){
+    echo $1
+    echo "-o out_file [-c]"
+}
+if [[ $# -eq 0 ]]; then
+    usage $SCRIPT
+    exit 1
+fi
+
+if [[ -z ${out_file} ]]; then
+    usage $SCRIPT
+    echo "Path to output is required"
+    exit 1
+fi
+
+if [[ ${print_cow} == "yes" ]]; then
+    fortune | cowsay > ${out_file}
+elif [[ ${print_cow} == "no" ]]; then
+    fortune > ${out_file}
+fi

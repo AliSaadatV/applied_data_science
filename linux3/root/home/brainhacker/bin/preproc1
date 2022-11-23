@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+IN_DIR="/Users/saadat/Documents/Courses/IORDS2021/linux3/root/home/brainhacker/inflammation_data"
+DAY=1
+csv_files=(/Users/saadat/Documents/Courses/IORDS2021/linux3/root/home/brainhacker/inflammation_data/*_region/*inflammation*.csv)
+OUT_DIR="/Users/saadat/Documents/Courses/IORDS2021/linux3/root/home/brainhacker/inflammation_proj"
+
+for file in ${csv_files[@]}; do
+    echo $file
+    file_name=${file##*/}
+
+    whole_parent_root=${file%/*}
+    parent_dir=${whole_parent_root##*/}
+    
+    n_subject=$(cat $file | wc -l)
+
+    echo "file: ${file_name}, parent: ${parent_dir}, n_subject: ${n_subject}"
+    if [[ ${n_subject} -lt 30 ]]; then
+        echo "excluded"
+    else
+        name1=${parent_dir%_*}
+        name2=${file_name%.*}
+        output="${OUT_DIR}/${name1}_${name2}_day${DAY}.csv"
+        echo "output at: ${output}"
+        /Users/saadat/Documents/Courses/IORDS2021/linux3/root/home/brainhacker/bin/get_day -f ${file} -o ${OUT_DIR}/${output} -d $DAY
+    fi
+    
+    echo "*****************"
+done
+
+

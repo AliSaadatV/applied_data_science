@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+echo "Hello Ali"
+
+fortune | cowsay -e ^^

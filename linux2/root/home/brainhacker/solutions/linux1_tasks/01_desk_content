@@ -1,0 +1,5 @@
+# Find all numbered notepages (only those ending with numbers)
+ls desk/notepad[0-9].txt
+
+# Find all papers and abstracts with only one command
+ls desk/*{paper,abstract}*
